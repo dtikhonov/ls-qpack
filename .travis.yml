@@ -4,7 +4,7 @@ compiler:
 
 env:
   global:
-    - secure: "Nn54fSZFj2VPFMex417QELKLvWsUdjpYVVIPQCvwEpziuSpSjG0Ly1oMMCWkBs48lp3ghq4GnqnUDbOn/Ll/Lq2VwfuebF01KpYlqGJki54qLVrH6bZJQ7N3mHxSCo2QNbLk0zJJz6oqsp1T3pBOb4qakuZQ/tFMkr/3QFIZcLJofp5o9+IqgxZdYEQdakpvS9BBBGqLvnm/StDvJ2wriHNDQfHx/zLsuSPfsQQ8fKzCGnNNO1B0dxKsKKllxQvEZaw9eJ+URVqLbV8QfJ9IldSkrSHdweI1KGlG4W60rQqZWjYFyvQC4Gwwu5eXWj0J4DJKfByESmB4mULpoNTVbrvhhWGgKNdYhDz1Ue2C1ZAuIMUS7F4gwxrEmiWeuNAuuqXLeleh5XRmIlQlg59xNJN32BeiwCMz6qlkTXu7HUVaovfgIFrovU0pwJGILaFq96h6BO3BKua08SRN6L9+CEUfPb92Bz7I2Bd7JqVfoiD+5JZ6iOMqlpVB7Av5OYZWgUlB35V4xH8k8C2/5ZhIEQUgqI4/cunx4vMakUFCvSdU/7nE+JetjQW8p6B+EzxXHZgTilj2xbY4g3UbRRH1+0iQDJDOpmFLiiXLAJd59+tlVYtJde9Vhm5rGcM4ssJ48QLlgWbIr3k6e7XkrhyR9pxk/RU2wCtFFfviTMFurhY="
+    - secure: "QfAjtgV7GrQViFNVEiqyM6GqjYybVnKXcNAvFkHDIq3+fgIUwUjECEw6GI7FjjsmknlQYBIx3ZBgdzaHKlYi3v7WFljdZwbFLVrcdEIBLfNkazu23vPfQ8OzDbvIVnjooawobEVJOtodq+YVeyDXdmXJSLsBg1eGE6JG2Pl7tRbOZjAShcL1U0nfSuvEA5ewoxHzcRdLwxBzcsyqhrseviJl8j1cvzaq8bWVyUoVZFNob4BP89eHbGlEOa56Zw7XGH4ld1e8EZ7G3K00efw8FlwYMePJx76MAJi0GSlY0QSJ0klfPx2E+0UP8rm+zmCkGqXBp27/ATIzhatY/evrxZMGKk2GQC1tcZGiv7JxJLqaj1c6ydvbiQunQUOpem10W6cZmpbPsEQf2lC6GHpWVKkkw1bKGuTKdOeltjQJ9ocwrFK97UxTXjcEMwVLy5yQvR1hEY60B6KTu1NUc3jwdUc4lu5r4iLuFC16fgUz/5nZXqZlcRjmyxfJvN418bVpwZHOazGCM6i9Xobt3JS7g7as9L8FoXUkbui1QuFVoCfmvBjb6HbPdibSIovSN1xVTh/VXxWC1nDyAGKKnkGB51tbHiqhh6LTGHFf4xtK3NDJAq32dkoVVHwfID+QwFHU9inWumbEGoVrOCEfqAQNguOJtJidPFVgaiWSDZCVJW8="
 
 addons:
   coverity_scan:
@@ -17,6 +17,7 @@ addons:
     branch_pattern: coverity_scan
 
 before_install:
+  - export PROJECT_NAME=dtikhonov/ls-qpack
   - echo -n | openssl s_client -connect scan.coverity.com:443 | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' | sudo tee -a /etc/ssl/certs/ca-
 
 script:
