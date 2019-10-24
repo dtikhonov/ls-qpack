@@ -1,32 +1,25 @@
 language: c
-sudo: false
+compiler:
+  - gcc
+
+env:
+  global:
+    - secure: "Nn54fSZFj2VPFMex417QELKLvWsUdjpYVVIPQCvwEpziuSpSjG0Ly1oMMCWkBs48lp3ghq4GnqnUDbOn/Ll/Lq2VwfuebF01KpYlqGJki54qLVrH6bZJQ7N3mHxSCo2QNbLk0zJJz6oqsp1T3pBOb4qakuZQ/tFMkr/3QFIZcLJofp5o9+IqgxZdYEQdakpvS9BBBGqLvnm/StDvJ2wriHNDQfHx/zLsuSPfsQQ8fKzCGnNNO1B0dxKsKKllxQvEZaw9eJ+URVqLbV8QfJ9IldSkrSHdweI1KGlG4W60rQqZWjYFyvQC4Gwwu5eXWj0J4DJKfByESmB4mULpoNTVbrvhhWGgKNdYhDz1Ue2C1ZAuIMUS7F4gwxrEmiWeuNAuuqXLeleh5XRmIlQlg59xNJN32BeiwCMz6qlkTXu7HUVaovfgIFrovU0pwJGILaFq96h6BO3BKua08SRN6L9+CEUfPb92Bz7I2Bd7JqVfoiD+5JZ6iOMqlpVB7Av5OYZWgUlB35V4xH8k8C2/5ZhIEQUgqI4/cunx4vMakUFCvSdU/7nE+JetjQW8p6B+EzxXHZgTilj2xbY4g3UbRRH1+0iQDJDOpmFLiiXLAJd59+tlVYtJde9Vhm5rGcM4ssJ48QLlgWbIr3k6e7XkrhyR9pxk/RU2wCtFFfviTMFurhY="
+
 addons:
-  apt:
-matrix:
-    include:
-        - name: Linux (gcc-8)
-          os: linux
-          dist: xenial
-          compiler: gcc-8
-          addons:
-             apt:
-               sources:
-                 - ubuntu-toolchain-r-test
-               packages: g++-8
-        - name: Linux (clang)
-          os: linux
-          dist: xenial
-          compiler: clang
-        - name: macOS (xcode)
-          os: osx
-        - name: macOS (xcode 10.1)
-          os: osx
-          image: xcode10.1
+  coverity_scan:
+    project:
+      name: "dtikhonov/ls-qpack"
+      description: "QPACK compression library"
+    notification_email: dtikhonov@litespeedtech.com
+    build_command_prepend: "cmake ."
+    build_command: make
+    branch_pattern: coverity_scan
+
 before_install:
-  - $CC --version
-  - cmake --version
-before_script:
-  - cmake -DLSQPACK_TESTS=ON .
+  - echo -n | openssl s_client -connect https://scan.coverity.com:443 | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' | sudo tee -a /etc/ssl/certs/ca-
+
 script:
+  - cmake -DLSQPACK_TESTS=ON .
   - make
   - make test
